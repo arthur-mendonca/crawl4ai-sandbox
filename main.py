@@ -100,6 +100,7 @@ async def crawl_url(url: str, custom_selector: Optional[str] = None) -> CrawlRes
 
     # 4. Configuração de Execução (CrawlerRunConfig)
     is_estadao = "estadao.com.br" in url
+    is_cnn = "cnnbrasil.com.br" in url
 
     run_config = CrawlerRunConfig(
         # SELETOR GENERALISTA:
@@ -107,6 +108,7 @@ async def crawl_url(url: str, custom_selector: Optional[str] = None) -> CrawlRes
         # ou <main>, ou classes comuns de conteúdo.
         css_selector=custom_selector or (
             "#content .news-body" if is_estadao
+            else "article" if is_cnn
             else "article, main, #content, .news-body, .main-content, .post-content, .entry-content"
         ),
         
